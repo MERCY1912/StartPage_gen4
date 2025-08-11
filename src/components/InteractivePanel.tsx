@@ -538,7 +538,7 @@ export const InteractivePanel: React.FC = () => {
 
           {/* Results */}
           {(isLoading || result || selectedCards.length > 0) && (
-            <div className="mt-6 sm:mt-8 bg-white border border-primary rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg shadow-primary/20">
+            <div className="mt-6 sm:mt-8 bg-background border border-primary rounded-2xl p-4 sm:p-6 lg:p-8 shadow-lg shadow-primary/20">
               <h4 className="text-lg sm:text-xl font-semibold text-text-primary mb-4">{t('interactive.results.title')}</h4>
               
               {/* Отображение выбранных карт таро */}
