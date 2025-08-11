@@ -27,7 +27,7 @@ export const FloatingPetals: React.FC = () => {
     };
 
     const createParticles = () => {
-      const particleCount = 20; // A fixed number of petals
+      const particleCount = 10; // A fixed number of petals
       particlesRef.current = [];
 
       for (let i = 0; i < particleCount; i++) {
@@ -37,7 +37,7 @@ export const FloatingPetals: React.FC = () => {
           size: Math.random() * 15 + 10, // Font size for emoji
           speedX: (Math.random() - 0.5) * 0.5, // Sideways drift
           speedY: Math.random() * 0.5 + 0.2, // Downward speed
-          opacity: Math.random() * 0.5 + 0.3, // Opacity
+          opacity: Math.random() * 0.3 + 0.1, // Opacity
         });
       }
     };
