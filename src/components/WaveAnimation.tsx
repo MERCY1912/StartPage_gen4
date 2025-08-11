@@ -21,7 +21,7 @@ const WaveAnimation: React.FC = () => {
     const drawWaves = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.lineWidth = 1;
-      ctx.strokeStyle = 'rgba(255, 192, 203, 0.2)'; // Subtle pink
+      ctx.strokeStyle = 'rgba(255, 192, 203, 0.35)'; // Subtle pink
 
       const waveCount = 8; // A reasonable number of waves
       for (let i = 0; i < waveCount; i++) {
@@ -31,7 +31,7 @@ const WaveAnimation: React.FC = () => {
         const yOffset = (i - (waveCount - 1) / 2) * 100;
 
         for (let x = -canvas.width * 1.5; x < canvas.width * 2.5; x++) {
-          const y = Math.sin(x * frequency + frame * 0.005 + i * 0.4) * amplitude;
+          const y = Math.sin(x * frequency + frame * 0.002 + i * 0.4) * amplitude;
 
           const diagonalX = x + y - yOffset;
           const diagonalY = (x - y + yOffset) / 2;
