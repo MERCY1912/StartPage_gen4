@@ -79,24 +79,24 @@ export const AuthModal: React.FC<AuthModalProps> = ({
 
   return ReactDOM.createPortal(
     <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose}></div>
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" onClick={onClose}></div>
       
-      <div className="relative w-full max-w-md bg-gradient-to-br from-slate-800 to-slate-900 border border-purple-500/30 rounded-2xl p-6 shadow-2xl">
+      <div className="relative w-full max-w-md backdrop-blur-xl bg-white/80 border border-primary rounded-2xl p-6 shadow-2xl shadow-primary/20">
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors"
+          className="absolute top-4 right-4 text-text-secondary hover:text-text-primary transition-colors"
         >
           <X className="w-5 h-5" />
         </button>
 
         <div className="text-center mb-6">
-          <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center mx-auto mb-4">
+          <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center mx-auto mb-4">
             <User className="w-8 h-8 text-white" />
           </div>
-          <h2 className="text-2xl font-bold text-white mb-2">
+          <h2 className="text-2xl font-serif font-bold text-text-primary mb-2">
             {isSignUp ? t('auth.modal.signUp') : t('auth.modal.signIn')}
           </h2>
-          <p className="text-slate-300 text-sm">
+          <p className="text-text-secondary text-sm">
             {isSignUp 
               ? t('auth.modal.signUpDescription')
               : t('auth.modal.signInDescription')
@@ -105,23 +105,23 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         </div>
 
         {error && (
-          <div className="mb-4 p-3 bg-red-500/20 border border-red-500/30 rounded-lg text-red-300 text-sm">
+          <div className="mb-4 p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-red-600 text-sm">
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-2">
+            <label className="block text-sm font-medium text-text-secondary mb-2">
               {t('auth.modal.email')}
             </label>
             <div className="relative">
-              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
+              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-text-secondary/70" />
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-400/50 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-3 bg-white border border-border rounded-lg text-text-primary placeholder-text-secondary/70 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent"
                 placeholder={t('auth.modal.emailPlaceholder')}
                 required
                 disabled={loading}
@@ -130,16 +130,16 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-slate-300 mb-2">
+            <label className="block text-sm font-medium text-text-secondary mb-2">
               {t('auth.modal.password')}
             </label>
             <div className="relative">
-              <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
+              <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-text-secondary/70" />
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-purple-400/50 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-3 bg-white border border-border rounded-lg text-text-primary placeholder-text-secondary/70 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-transparent"
                 placeholder={t('auth.modal.passwordPlaceholder')}
                 required
                 minLength={6}
@@ -151,7 +151,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
           <button
             type="submit"
             disabled={loading || !email.trim() || !password.trim()}
-            className="w-full py-3 bg-gradient-to-r from-purple-500 via-pink-500 to-blue-500 text-white rounded-xl font-semibold hover:from-purple-600 hover:via-pink-600 hover:to-blue-600 transition-all duration-200 transform hover:scale-[1.02] flex items-center justify-center space-x-2 shadow-lg shadow-purple-500/25 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+            className="w-full py-3 bg-gradient-to-r from-primary to-accent text-white rounded-full font-semibold transition-all duration-300 ease-in-out transform hover:-translate-y-0.5 shadow-lg hover:shadow-xl shadow-primary/30 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {loading ? (
               <>
@@ -167,7 +167,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         <div className="mt-6 text-center">
           <button
             onClick={toggleMode}
-            className="text-purple-300 hover:text-purple-200 transition-colors text-sm"
+            className="text-accent hover:text-primary transition-colors text-sm font-medium"
             disabled={loading}
           >
             {isSignUp 
@@ -178,7 +178,7 @@ export const AuthModal: React.FC<AuthModalProps> = ({
         </div>
 
         {isSignUp && (
-          <p className="text-xs text-slate-400 text-center mt-4">
+          <p className="text-xs text-text-secondary text-center mt-4">
             {t('auth.modal.terms')}
           </p>
         )}
