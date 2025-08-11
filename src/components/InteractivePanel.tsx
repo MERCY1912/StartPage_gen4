@@ -583,7 +583,7 @@ export const InteractivePanel: React.FC = () => {
               ) : result && (
                 <>
                   <div 
-                    className="leading-relaxed text-sm sm:text-base prose max-w-none text-black"
+                    className="leading-relaxed text-sm sm:text-base prose max-w-none"
                     dangerouslySetInnerHTML={{ __html: result }}
                   />
                   
