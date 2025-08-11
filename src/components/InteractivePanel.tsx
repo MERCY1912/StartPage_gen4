@@ -17,55 +17,69 @@ interface Service {
 
 import { Sprout, BookOpen, Sun, Coffee, Calendar, Shirt } from 'lucide-react';
 
-const getServices = (): Service[] => [
+const getServices = (t: (key: string) => string): Service[] => [
   {
-    id: 'morning-routine',
-    icon: "https://blog.lunarum.app/wp-content/uploads/2025/08/rising-sun.png",
-    titleKey: 'Начни свой день с вдохновения',
-    descriptionKey: 'Начни свой день с позитивных аффирмаций и мотивации.',
-    placeholderKey: 'Хочу получить заряд бодрости на весь день...',
+    id: 'style',
+    icon: Shirt,
+    titleKey: 'Образы и стиль',
+    descriptionKey: 'Подбор одежды, макияжа, аксессуаров для любого случая.',
+    placeholderKey: 'Что надеть на свидание осенью?',
   },
   {
-    id: 'daily-planner',
-    icon: "https://blog.lunarum.app/wp-content/uploads/2025/08/calendar-2.png",
-    titleKey: 'Планирование дня',
-    descriptionKey: 'Организуй свои задачи и расставь приоритеты.',
-    placeholderKey: 'Помоги мне спланировать мой день...',
+    id: 'recipes',
+    icon: Coffee,
+    titleKey: 'Рецепты',
+    descriptionKey: 'Простые и вкусные блюда на каждый день.',
+    placeholderKey: 'Придумай лёгкий ужин за 20 минут',
   },
   {
-    id: 'self-care-idea',
-    icon: "https://blog.lunarum.app/wp-content/uploads/2025/08/girl.png",
-    titleKey: 'Идея для заботы о себе',
-    descriptionKey: 'Найди время для себя с персональной рекомендацией.',
-    placeholderKey: 'Что я могу сделать для себя сегодня?',
+    id: 'wellness',
+    icon: Sprout,
+    titleKey: 'Здоровье и спокойствие',
+    descriptionKey: 'Фитнес, питание, расслабление, медитация.',
+    placeholderKey: 'Как успокоиться перед важной встречей?',
   },
   {
-    id: 'book-suggestion',
-    icon: "https://blog.lunarum.app/wp-content/uploads/2025/08/book.png",
-    titleKey: 'Книжная рекомендация',
-    descriptionKey: 'Получи совет, какую книгу почитать вечером.',
-    placeholderKey: 'Посоветуй мне книгу под настроение...',
+    id: 'relationships',
+    icon: HeartHandshake,
+    titleKey: 'Отношения',
+    descriptionKey: 'Советы по любви, дружбе и общению.',
+    placeholderKey: 'Как намекнуть парню, что он мне нравится?',
   },
   {
-    id: 'coffee-break',
-    icon: "https://blog.lunarum.app/wp-content/uploads/2025/08/coffee-cup.png",
-    titleKey: 'Кофе-брейк',
-    descriptionKey: 'Короткий перерыв с интересным фактом или мыслью.',
-    placeholderKey: 'Расскажи мне что-нибудь интересное...',
+    id: 'mood',
+    icon: Sparkles,
+    titleKey: 'Настроение и вдохновение',
+    descriptionKey: 'Мотивация, добрые слова, аффирмации.',
+    placeholderKey: 'Скажи что-то тёплое на ночь',
   },
   {
-    id: 'what-to-wear',
-    icon: "https://blog.lunarum.app/wp-content/uploads/2025/08/dress.png",
-    titleKey: 'interactive.services.whatToWear.title',
-    descriptionKey: 'interactive.services.whatToWear.description',
-    placeholderKey: 'interactive.services.whatToWear.placeholder',
+    id: 'selfcare',
+    icon: Sun,
+    titleKey: 'Уход за собой',
+    descriptionKey: 'Кожа, волосы, ногти, бьюти-лайфхаки.',
+    placeholderKey: 'Как ухаживать за кожей зимой?',
+  },
+  {
+    id: 'career',
+    icon: BrainCircuit,
+    titleKey: 'Работа и развитие',
+    descriptionKey: 'Карьера, хобби, личный рост.',
+    placeholderKey: 'Как просить повышение?',
+  },
+  {
+    id: 'hobbies',
+    icon: BookOpen,
+    titleKey: 'Идеи для досуга',
+    descriptionKey: 'Рукоделие, декор, творческие занятия.',
+    placeholderKey: 'Как сделать свечу своими руками?',
   },
 ];
 
 
 export const InteractivePanel: React.FC = () => {
   const { t } = useLanguage();
-  const [selectedService, setSelectedService] = useState<string>('daily-boost');
+  const [selectedService, setSelectedService] = useState<string>('style');
   const [input, setInput] = useState<string>('');
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [result, setResult] = useState<string>('');
@@ -79,7 +93,7 @@ export const InteractivePanel: React.FC = () => {
   const [currentLoadingMessageIndex, setCurrentLoadingMessageIndex] = useState<number>(0);
   
   const { user, loading: authLoading } = useAuth();
-  const services = getServices();
+  const services = getServices(t);
 
   const currentService = services.find(s => s.id === selectedService) || services[0];
 
@@ -136,16 +150,17 @@ export const InteractivePanel: React.FC = () => {
 
   const getWebhookUrl = (serviceId: string, meowModeEnabled: boolean = false): string => {
     const webhookUrls = {
-      'daily-boost': meowModeEnabled ? import.meta.env.VITE_N8N_WEBHOOK_DAILY_BOOST_MEOW : import.meta.env.VITE_N8N_WEBHOOK_DAILY_BOOST,
-      'ask-anything': meowModeEnabled ? import.meta.env.VITE_N8N_WEBHOOK_ASK_ANYTHING_MEOW : import.meta.env.VITE_N8N_WEBHOOK_ASK_ANYTHING,
-      'style-guide': meowModeEnabled ? import.meta.env.VITE_N8N_WEBHOOK_STYLE_GUIDE_MEOW : import.meta.env.VITE_N8N_WEBHOOK_STYLE_GUIDE,
-      'heart-talk': meowModeEnabled ? import.meta.env.VITE_N8N_WEBHOOK_HEART_TALK_MEOW : import.meta.env.VITE_N8N_WEBHOOK_HEART_TALK,
-      'glow-up-plan': meowModeEnabled ? import.meta.env.VITE_N8N_WEBHOOK_GLOW_UP_PLAN_MEOW : import.meta.env.VITE_N8N_WEBHOOK_GLOW_UP_PLAN,
-      'tea-gossip': meowModeEnabled ? import.meta.env.VITE_N8N_WEBHOOK_TEA_GOSSIP_MEOW : import.meta.env.VITE_N8N_WEBHOOK_TEA_GOSSIP,
-      'what-to-wear': meowModeEnabled ? import.meta.env.VITE_N8N_WEBHOOK_WHAT_TO_WEAR_MEOW : import.meta.env.VITE_N8N_WEBHOOK_WHAT_TO_WEAR,
+      'style': meowModeEnabled ? import.meta.env.VITE_N8N_WEBHOOK_STYLE_MEOW : import.meta.env.VITE_N8N_WEBHOOK_STYLE,
+      'recipes': meowModeEnabled ? import.meta.env.VITE_N8N_WEBHOOK_RECIPES_MEOW : import.meta.env.VITE_N8N_WEBHOOK_RECIPES,
+      'wellness': meowModeEnabled ? import.meta.env.VITE_N8N_WEBHOOK_WELLNESS_MEOW : import.meta.env.VITE_N8N_WEBHOOK_WELLNESS,
+      'relationships': meowModeEnabled ? import.meta.env.VITE_N8N_WEBHOOK_RELATIONSHIPS_MEOW : import.meta.env.VITE_N8N_WEBHOOK_RELATIONSHIPS,
+      'mood': meowModeEnabled ? import.meta.env.VITE_N8N_WEBHOOK_MOOD_MEOW : import.meta.env.VITE_N8N_WEBHOOK_MOOD,
+      'selfcare': meowModeEnabled ? import.meta.env.VITE_N8N_WEBHOOK_SELFCARE_MEOW : import.meta.env.VITE_N8N_WEBHOOK_SELFCARE,
+      'career': meowModeEnabled ? import.meta.env.VITE_N8N_WEBHOOK_CAREER_MEOW : import.meta.env.VITE_N8N_WEBHOOK_CAREER,
+      'hobbies': meowModeEnabled ? import.meta.env.VITE_N8N_WEBHOOK_HOBBIES_MEOW : import.meta.env.VITE_N8N_WEBHOOK_HOBBIES,
     };
     
-    return webhookUrls[serviceId as keyof typeof webhookUrls] || webhookUrls['daily-boost'];
+    return webhookUrls[serviceId as keyof typeof webhookUrls] || webhookUrls['style'];
   };
 
   const sendToN8N = async (serviceId: string, userInput: string, tarotCardNames?: string[], meowModeEnabled?: boolean): Promise<string> => {
