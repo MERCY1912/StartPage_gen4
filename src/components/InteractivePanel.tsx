@@ -466,7 +466,7 @@ export const InteractivePanel: React.FC = () => {
                       className={`px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 ease-in-out transform hover:scale-105 flex items-center space-x-1 sm:space-x-2 ${
                         selectedService === service.id
                           ? `bg-gradient-to-r from-primary to-accent text-white shadow-lg shadow-primary/30`
-                          : `bg-secondary text-text-primary hover:bg-gradient-to-r hover:from-primary hover:to-accent hover:text-white`
+                          : `bg-gradient-to-br from-secondary to-secondary-dark text-text-primary hover:bg-gradient-to-r hover:from-primary hover:to-accent hover:text-white`
                       }`}
                     >
                       {typeof service.icon === 'string' ? (
