@@ -1,0 +1,124 @@
+{
+  "nav": {
+    "support": "Support Project",
+    "about": "About Us",
+    "articles": "Articles",
+    "dreamInterpretation": "Dream Interpretation",
+    "horoscope": "Horoscope",
+    "tarotReading": "Tarot Reading"
+  },
+  "auth": {
+    "login": "Login",
+    "logout": "Logout"
+  },
+  "login": "Login",
+  "logout": "Logout",
+  "hero": {
+    "title": "Reveal the Meaning",
+    "titleHighlight": "Beyond",
+    "description": "Discover hidden meanings through AI-powered dream interpretation, personalized horoscopes, and mystical tarot readings.",
+    "aiPowered": "Powered by Advanced AI",
+    "trustedUsers": "Trusted by 100K+ Users"
+  },
+  "footer": {
+    "brandName": "Mystical AI",
+    "createdWith": "Created with",
+    "forSeekers": "for wisdom seekers",
+    "copyright": "© 2025 Mystical AI. All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  },
+  "interactive": {
+    "title": "Choose Your Mystical Path",
+    "meowMode": "Enable Meow Mode",
+    "meowModeTooltip": "Meow mode activates a fluffy fortune-telling cat: it purrs, hisses, and predicts fate with a tailed character.",
+    "atmosphereMode": "Atmosphere",
+    "atmosphereModeTooltip": "Enables mystical background music to create an atmosphere of ancient rituals and magical practices.",
+    "services": {
+      "dailyBoost": {
+        "title": "Daily Boost",
+        "description": "Start your day with a positive affirmation, energy check-in, and friendly motivation.",
+        "placeholder": "Tell me something to get my day started..."
+      },
+      "askAnything": {
+        "title": "Ask Anything",
+        "description": "Get advice or insights on relationships, work, emotions, beauty, or anything personal.",
+        "placeholder": "Ask a question about relationships, work, or something personal..."
+      },
+      "styleGuide": {
+        "title": "Style Guide",
+        "description": "Outfit suggestions based on mood, occasion, or season. Option to upload a photo.",
+        "placeholder": "I need an outfit for a first date..."
+      },
+      "heartTalk": {
+        "title": "Heart Talk",
+        "description": "Vent, journal, or reflect. The AI listens, asks gentle questions, and offers comfort.",
+        "placeholder": "I need to talk about something that's on my mind..."
+      },
+      "glowUpPlan": {
+        "title": "Glow Up Plan",
+        "description": "A personalized weekly plan for self-care, beauty, fitness, and mindset.",
+        "placeholder": "Create a glow-up plan for me for next week..."
+      },
+      "teaGossip": {
+        "title": "Tea & Gossip",
+        "description": "Fun, light-hearted mode: trending topics, celeb gossip, memes, quizzes, and more.",
+        "placeholder": "What's the latest gossip?"
+      },
+      "whatToWear": {
+        "title": "What to wear",
+        "description": "Get a style suggestion based on the weather, occasion, or your mood.",
+        "placeholder": "I'm going to a wedding, help me with a look..."
+      }
+    },
+    "buttons": {
+      "submit": "Reveal Meanings",
+      "loading": "Consulting the cosmos...",
+      "loadingMessages": [
+        "Consulting the cosmos...",
+        "Deciphering the signs of stars...",
+        "Listening to what the Universe whispers...",
+        "Opening ancient chronicles...",
+        "Gathering dream fragments by threads...",
+        "Penetrating beyond the obvious...",
+        "Performing the ritual of answer...",
+        "Cleaning the mirror of the future...",
+        "Cosmos is online. Connecting...",
+        "Searching for answer in dusty archives of Fate...",
+        "Loading mystical context..."
+      ],
+      "register": "Register to continue",
+      "limitReached": "Daily limit reached",
+      "copy": "Copy text",
+      "copied": "Copied!"
+    },
+    "results": {
+      "title": "Your Reading",
+      "selectedCards": "Selected cards:"
+    }
+  },
+  "usage": {
+    "anonymous": "Without registration:",
+    "remaining": "Remaining today:",
+    "register": "Register"
+  },
+  "auth": {
+    "modal": {
+      "signUp": "Sign Up",
+      "signIn": "Sign In",
+      "signUpDescription": "Create an account to continue chatting with AI",
+      "signInDescription": "Sign in to your account to continue",
+      "email": "Email",
+      "password": "Password",
+      "emailPlaceholder": "your@email.com",
+      "passwordPlaceholder": "••••••••",
+      "signUpButton": "Sign Up",
+      "signInButton": "Sign In",
+      "signUpLoading": "Signing up...",
+      "signInLoading": "Signing in...",
+      "switchToSignIn": "Already have an account? Sign In",
+      "switchToSignUp": "Don't have an account? Sign Up",
+      "terms": "By signing up, you agree to our terms of service and privacy policy."
+    }
+  }
+}
