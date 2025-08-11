@@ -45,7 +45,7 @@ input, textarea {
 
 /* Prose styles for AI responses */
 .prose {
-  color: theme('colors.text-secondary');
+  color: theme('colors.text-primary');
 }
 
 .prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
