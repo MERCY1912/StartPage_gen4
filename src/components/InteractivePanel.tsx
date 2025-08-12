@@ -385,7 +385,7 @@ export const InteractivePanel: React.FC = () => {
         {/* Input Panel */}
         <div className="max-w-4xl mx-auto">
           <form onSubmit={handleSubmit} className="space-y-6">
-            <div className={`backdrop-blur-xl bg-white/50 border border-primary rounded-2xl p-4 sm:p-6 lg:p-8 relative overflow-hidden shadow-lg shadow-primary/20 ${meowMode ? 'meow-mode-active' : ''}`}>
+            <div className={`backdrop-blur-xl bg-white/50 border border-primary rounded-2xl p-4 sm:p-6 lg:p-8 relative overflow-hidden shadow-xl ${meowMode ? 'meow-mode-active' : ''}`}>
               {/* Мяу-режим огонек */}
               {meowMode && (
                 <div className="absolute inset-0 pointer-events-none">
