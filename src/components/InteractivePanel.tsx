@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, Loader2, Cat, Copy, Check, HelpCircle, Sun, BrainCircuit, Shirt, HeartHandshake, Sparkles, Coffee } from 'lucide-react';
+import { Send, Loader2, Cat, Copy, Check, HelpCircle } from 'lucide-react';
 import { UsageTracker, UsageData } from '../utils/usageTracker';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -15,61 +15,59 @@ interface Service {
   placeholderKey: string;
 }
 
-import { Sprout, BookOpen, Sun, Coffee, Calendar, Shirt } from 'lucide-react';
-
 const getServices = (t: (key: string) => string): Service[] => [
   {
     id: 'style',
-    icon: Shirt,
+    icon: 'https://blog.lunarum.app/wp-content/uploads/2025/08/style.png',
     titleKey: 'Образы и стиль',
     descriptionKey: 'Подбор одежды, макияжа, аксессуаров для любого случая.',
     placeholderKey: 'Что надеть на свидание осенью?',
   },
   {
     id: 'recipes',
-    icon: Coffee,
+    icon: 'https://blog.lunarum.app/wp-content/uploads/2025/08/recepti.png',
     titleKey: 'Рецепты',
     descriptionKey: 'Простые и вкусные блюда на каждый день.',
     placeholderKey: 'Придумай лёгкий ужин за 20 минут',
   },
   {
     id: 'wellness',
-    icon: Sprout,
+    icon: 'https://blog.lunarum.app/wp-content/uploads/2025/08/health.png',
     titleKey: 'Здоровье и спокойствие',
     descriptionKey: 'Фитнес, питание, расслабление, медитация.',
     placeholderKey: 'Как успокоиться перед важной встречей?',
   },
   {
     id: 'relationships',
-    icon: HeartHandshake,
+    icon: 'https://blog.lunarum.app/wp-content/uploads/2025/08/love.png',
     titleKey: 'Отношения',
     descriptionKey: 'Советы по любви, дружбе и общению.',
     placeholderKey: 'Как намекнуть парню, что он мне нравится?',
   },
   {
     id: 'mood',
-    icon: Sparkles,
+    icon: 'https://blog.lunarum.app/wp-content/uploads/2025/08/ideas.png',
     titleKey: 'Настроение и вдохновение',
     descriptionKey: 'Мотивация, добрые слова, аффирмации.',
     placeholderKey: 'Скажи что-то тёплое на ночь',
   },
   {
     id: 'selfcare',
-    icon: Sun,
+    icon: 'https://blog.lunarum.app/wp-content/uploads/2025/08/yhod.png',
     titleKey: 'Уход за собой',
     descriptionKey: 'Кожа, волосы, ногти, бьюти-лайфхаки.',
     placeholderKey: 'Как ухаживать за кожей зимой?',
   },
   {
     id: 'career',
-    icon: BrainCircuit,
+    icon: 'https://blog.lunarum.app/wp-content/uploads/2025/08/work.png',
     titleKey: 'Работа и развитие',
     descriptionKey: 'Карьера, хобби, личный рост.',
     placeholderKey: 'Как просить повышение?',
   },
   {
     id: 'hobbies',
-    icon: BookOpen,
+    icon: 'https://blog.lunarum.app/wp-content/uploads/2025/08/fun.png',
     titleKey: 'Идеи для досуга',
     descriptionKey: 'Рукоделие, декор, творческие занятия.',
     placeholderKey: 'Как сделать свечу своими руками?',
