@@ -8,9 +8,12 @@ function HeaderPremium() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-accent-vibrant to-secondary-dark animate-gradient-x transition-opacity duration-300 hover:opacity-80"
+        className="group flex items-center space-x-2 transition-opacity duration-300 hover:opacity-80"
       >
-        Премиум
+        <img src="https://blog.lunarum.app/wp-content/uploads/2025/08/vip-c.png" alt="" className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
+        <span className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-pink-600 to-red-500 animate-gradient-x">
+          Премиум
+        </span>
       </button>
       <PricingModal open={open} onClose={() => setOpen(false)} />
     </>
