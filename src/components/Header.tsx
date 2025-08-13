@@ -6,7 +6,9 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { AuthModal } from './AuthModal';
 import { UsageTracker } from '../utils/usageTracker';
 
-export const Header: React.FC = () => {
+type HeaderProps = { onPremiumClick: () => void };
+
+export const Header: React.FC<HeaderProps> = ({ onPremiumClick }) => {
   const { user, signOut } = useAuth();
   const { language, setLanguage, t } = useLanguage();
   const [showAuthModal, setShowAuthModal] = React.useState(false);
@@ -159,6 +161,11 @@ export const Header: React.FC = () => {
           <a href="#articles" className="text-base text-text-secondary hover:text-text-primary transition-colors duration-300 ease-in-out">
             {t('nav.articles')}
           </a>
+          {user && (
+            <button onClick={onPremiumClick} className="text-base text-accent hover:text-primary transition-colors duration-300 ease-in-out">
+              Премиум
+            </button>
+          )}
           <button 
             onClick={handleAuthAction}
             className="px-4 lg:px-6 py-2 text-white rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg shadow-primary/30 text-sm lg:text-base flex items-center space-x-2 bg-gradient-to-r from-primary to-accent hover:shadow-xl hover:shadow-primary/50"
@@ -258,6 +265,17 @@ export const Header: React.FC = () => {
                 >
                   {t('nav.articles')}
                 </a>
+                {user && (
+                  <button
+                    onClick={() => {
+                      onPremiumClick();
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="block w-full text-left text-text-secondary hover:text-primary transition-colors duration-300 ease-in-out py-2"
+                  >
+                    Премиум
+                  </button>
+                )}
                 <button 
                   onClick={() => {
                     handleAuthAction();
