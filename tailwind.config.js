@@ -9,7 +9,7 @@ export default {
         'text-secondary': '#A1887F',
         'primary': '#F4B5C7',
         'accent': '#E799A3',
-        'accent-vibrant': '#F87171',
+        'accent-vibrant': '#F43F5E',
         'secondary': '#D9C8E3',
         'secondary-dark': '#C4B5D6',
         'border': '#E8D9CF',

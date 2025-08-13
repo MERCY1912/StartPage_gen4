@@ -23,11 +23,11 @@ export const UsageIndicator: React.FC<UsageIndicatorProps> = ({
   return (
     <div className="flex items-center justify-center space-x-3 text-sm">
       <div className="flex items-center space-x-2">
-        <div className="text-slate-400">
+        <div className="text-text-primary">
           {usage.isAnonymous ? (
-            <>{t('usage.anonymous')} <span className="text-white font-medium">{remaining}/5</span></>
+            <>{t('usage.anonymous')} <span className="text-accent font-medium">{remaining}/5</span></>
           ) : (
-            <>{t('usage.remaining')} <span className="text-white font-medium">{remaining}/10</span></>
+            <>{t('usage.remaining')} <span className="text-accent font-medium">{remaining}/10</span></>
           )}
         </div>
         {remaining <= 2 && (
