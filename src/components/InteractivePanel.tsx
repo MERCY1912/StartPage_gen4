@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Send, Loader2, Cat, Copy, Check, HelpCircle } from 'lucide-react';
 import { UsageTracker, UsageData } from '../utils/usageTracker';
+import PricingModal from '../components/PricingModal';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { UsageIndicator } from './UsageIndicator';
@@ -8,14 +9,14 @@ import { AuthModal } from './AuthModal';
 import { getTarotCardsList, selectRandomCards, TarotCard } from '../utils/supabaseStorage';
 
 interface Service {
-  id: string;
-  icon: any;
+  id:string;
+  icon: string | React.ElementType;
   titleKey: string;
   descriptionKey: string;
   placeholderKey: string;
 }
 
-const getServices = (t: (key: string) => string): Service[] => [
+const getServices = (): Service[] => [
   {
     id: 'style',
     icon: 'https://blog.lunarum.app/wp-content/uploads/2025/08/style.png',
@@ -82,6 +83,7 @@ export const InteractivePanel: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [result, setResult] = useState<string>('');
   const [showAuthModal, setShowAuthModal] = useState<boolean>(false);
+  const [showPricing, setShowPricing] = useState(false);
   const [usage, setUsage] = useState<UsageData | null>(null);
   const [remaining, setRemaining] = useState<number>(0);
   const [meowMode, setMeowMode] = useState<boolean>(false);
@@ -91,7 +93,7 @@ export const InteractivePanel: React.FC = () => {
   const [currentLoadingMessageIndex, setCurrentLoadingMessageIndex] = useState<number>(0);
   
   const { user, loading: authLoading } = useAuth();
-  const services = getServices(t);
+  const services = getServices();
 
   const currentService = services.find(s => s.id === selectedService) || services[0];
 
@@ -173,11 +175,21 @@ export const InteractivePanel: React.FC = () => {
     // Проверяем валидность URL
     try {
       new URL(webhookUrl);
-    } catch (urlError) {
+    } catch (_urlError) {
       throw new Error(`Некорректный URL вебхука для сервиса "${serviceId}": ${webhookUrl}`);
     }
 
-    const payload: any = {
+    interface N8NPayload {
+      service: string;
+      input: string;
+      userId: string | null;
+      timestamp: string;
+      userEmail: string | null;
+      meowMode: boolean;
+      selectedCards?: string;
+    }
+
+    const payload: N8NPayload = {
       service: serviceId,
       input: userInput,
       userId: user?.id || null,
@@ -237,7 +249,7 @@ export const InteractivePanel: React.FC = () => {
       if (responseText) {
         try {
           result = JSON.parse(responseText);
-        } catch (parseError) {
+        } catch (_parseError) {
           console.log('Ответ не является JSON, используем как текст:', responseText);
           // Если это не JSON, используем как обычный текст
           return responseText;
@@ -272,14 +284,8 @@ export const InteractivePanel: React.FC = () => {
     e.preventDefault();
     if (!input.trim()) return;
 
-    // Check if user can make request and debit their usage
-    const canMakeRequest = await UsageTracker.checkAndDebit(user?.id);
-    if (!canMakeRequest) {
-      if (!user) {
-        setShowAuthModal(true);
-      }
-      return;
-    }
+    const ok = await UsageTracker.checkAndDebit(user?.id);
+    if (!ok) { setShowPricing(true); return; }
 
     // Refresh usage data after debiting
     await refreshUsage();
@@ -614,6 +620,7 @@ export const InteractivePanel: React.FC = () => {
         onClose={() => setShowAuthModal(false)}
         onSuccess={handleAuthSuccess}
       />
+      {showPricing && <PricingModal open={showPricing} onClose={() => setShowPricing(false)} />}
     </section>
   );
 };
