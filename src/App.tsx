@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AuthProvider } from './contexts/AuthContext';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { Header } from './components/Header';
@@ -9,8 +9,11 @@ import { FloatingPetals } from './components/FloatingPetals';
 import WaveAnimation from './components/WaveAnimation';
 import { CursorTrail } from './components/CursorTrail';
 import { CursorTracker } from './components/CursorTracker';
+import PricingModal from './components/PricingModal';
 
 function App() {
+  const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
+
   return (
     <LanguageProvider>
       <AuthProvider>
@@ -27,11 +30,13 @@ function App() {
           
           {/* Main content */}
           <div className="relative z-10">
-            <Header />
+            <Header onPremiumClick={() => setIsPricingModalOpen(true)} />
             <Hero />
             <InteractivePanel />
             <Footer />
           </div>
+
+          <PricingModal open={isPricingModalOpen} onClose={() => setIsPricingModalOpen(false)} />
         </div>
       </AuthProvider>
     </LanguageProvider>
