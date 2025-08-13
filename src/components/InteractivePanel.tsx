@@ -272,26 +272,23 @@ export const InteractivePanel: React.FC = () => {
     e.preventDefault();
     if (!input.trim()) return;
 
-    // Check if user can make request
-    const canMake = await UsageTracker.canMakeRequest(user?.id);
-    if (!canMake) {
-      // Show auth modal for anonymous users, or just return for registered users
+    // Check if user can make request and debit their usage
+    const canMakeRequest = await UsageTracker.checkAndDebit(user?.id);
+    if (!canMakeRequest) {
       if (!user) {
         setShowAuthModal(true);
       }
       return;
     }
 
+    // Refresh usage data after debiting
+    await refreshUsage();
+
     setIsLoading(true);
     setResult('');
     setSelectedCards([]);
 
     try {
-      // Increment usage counter first
-      await UsageTracker.incrementUsage(user?.id);
-      
-      // Refresh usage data
-      await refreshUsage();
 
       let tarotCardNames: string[] | undefined;
       

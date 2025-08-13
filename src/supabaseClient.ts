@@ -51,41 +51,7 @@ export { supabase };
 export type Database = {
   public: {
     Tables: {
-      user_usage: {
-        Row: {
-          id: string;
-          user_id: string | null;
-          anonymous_id: string | null;
-          request_date: string;
-          request_count: number;
-          is_premium: boolean;
-          premium_expires_at: string | null;
-          created_at: string;
-          updated_at: string;
-        };
-        Insert: {
-          id?: string;
-          user_id?: string | null;
-          anonymous_id?: string | null;
-          request_date: string;
-          request_count?: number;
-          is_premium?: boolean;
-          premium_expires_at?: string | null;
-          created_at?: string;
-          updated_at?: string;
-        };
-        Update: {
-          id?: string;
-          user_id?: string | null;
-          anonymous_id?: string | null;
-          request_date?: string;
-          request_count?: number;
-          is_premium?: boolean;
-          premium_expires_at?: string | null;
-          created_at?: string;
-          updated_at?: string;
-        };
-      };
+      // Add other table types here if needed
     };
   };
 };
