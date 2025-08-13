@@ -4,6 +4,7 @@ import { Sparkles, Menu, X, Globe, Music, HelpCircle } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { AuthModal } from './AuthModal';
+import AccountModal from './AccountModal';
 import { UsageTracker } from '../utils/usageTracker';
 import HeaderPremium from './HeaderPremium';
 
@@ -13,6 +14,7 @@ export const Header: React.FC<HeaderProps> = () => {
   const { user, signOut } = useAuth();
   const { language, setLanguage, t } = useLanguage();
   const [showAuthModal, setShowAuthModal] = React.useState(false);
+  const [showAccountModal, setShowAccountModal] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const [isAtmosphereMode, setIsAtmosphereMode] = React.useState<boolean>(false);
   const [showAtmosphereTooltip, setShowAtmosphereTooltip] = React.useState<boolean>(false);
@@ -162,8 +164,13 @@ export const Header: React.FC<HeaderProps> = () => {
           <a href="#articles" className="text-base text-text-secondary hover:text-text-primary transition-colors duration-300 ease-in-out">
             {t('nav.articles')}
           </a>
+          {user && (
+            <button onClick={() => setShowAccountModal(true)} className="text-base text-text-secondary hover:text-text-primary transition-colors duration-300 ease-in-out">
+              Аккаунт
+            </button>
+          )}
           <HeaderPremium />
-          <button 
+          <button
             onClick={handleAuthAction}
             className="px-4 lg:px-6 py-2 text-white rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg shadow-primary/30 text-sm lg:text-base flex items-center space-x-2 bg-gradient-to-r from-primary to-accent hover:shadow-xl hover:shadow-primary/50"
           >
@@ -262,6 +269,17 @@ export const Header: React.FC<HeaderProps> = () => {
                 >
                   {t('nav.articles')}
                 </a>
+                {user && (
+                  <button
+                    onClick={() => {
+                      setShowAccountModal(true);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className="block w-full text-left text-text-secondary hover:text-primary transition-colors duration-300 ease-in-out py-2"
+                  >
+                    Аккаунт
+                  </button>
+                )}
                 <div className="py-2">
                   <HeaderPremium />
                 </div>
@@ -286,6 +304,7 @@ export const Header: React.FC<HeaderProps> = () => {
         onClose={() => setShowAuthModal(false)}
         onSuccess={handleAuthSuccess}
       />
+      <AccountModal open={showAccountModal} onClose={() => setShowAccountModal(false)} onOpenAuth={() => { setShowAccountModal(false); setShowAuthModal(true); }} />
     </>
   );
 };
