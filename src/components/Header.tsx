@@ -5,10 +5,11 @@ import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { AuthModal } from './AuthModal';
 import { UsageTracker } from '../utils/usageTracker';
+import HeaderPremium from './HeaderPremium';
 
-type HeaderProps = { onPremiumClick: () => void };
+type HeaderProps = Record<string, never>;
 
-export const Header: React.FC<HeaderProps> = ({ onPremiumClick }) => {
+export const Header: React.FC<HeaderProps> = () => {
   const { user, signOut } = useAuth();
   const { language, setLanguage, t } = useLanguage();
   const [showAuthModal, setShowAuthModal] = React.useState(false);
@@ -161,11 +162,7 @@ export const Header: React.FC<HeaderProps> = ({ onPremiumClick }) => {
           <a href="#articles" className="text-base text-text-secondary hover:text-text-primary transition-colors duration-300 ease-in-out">
             {t('nav.articles')}
           </a>
-          {user && (
-            <button onClick={onPremiumClick} className="text-base text-accent hover:text-primary transition-colors duration-300 ease-in-out">
-              Премиум
-            </button>
-          )}
+          <HeaderPremium />
           <button 
             onClick={handleAuthAction}
             className="px-4 lg:px-6 py-2 text-white rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg shadow-primary/30 text-sm lg:text-base flex items-center space-x-2 bg-gradient-to-r from-primary to-accent hover:shadow-xl hover:shadow-primary/50"
@@ -265,17 +262,9 @@ export const Header: React.FC<HeaderProps> = ({ onPremiumClick }) => {
                 >
                   {t('nav.articles')}
                 </a>
-                {user && (
-                  <button
-                    onClick={() => {
-                      onPremiumClick();
-                      setIsMobileMenuOpen(false);
-                    }}
-                    className="block w-full text-left text-text-secondary hover:text-primary transition-colors duration-300 ease-in-out py-2"
-                  >
-                    Премиум
-                  </button>
-                )}
+                <div className="py-2">
+                  <HeaderPremium />
+                </div>
                 <button 
                   onClick={() => {
                     handleAuthAction();
