@@ -20,24 +20,6 @@ export const Header: React.FC<HeaderProps> = () => {
   const [isAtmosphereMode, setIsAtmosphereMode] = React.useState<boolean>(false);
   const [showAtmosphereTooltip, setShowAtmosphereTooltip] = React.useState<boolean>(false);
   const audioRef = React.useRef<HTMLAudioElement | null>(null);
-  const [remaining, setRemaining] = React.useState<number | null>(null);
-
-  React.useEffect(() => {
-    if (!user) {
-      setRemaining(null);
-      return;
-    }
-    const fetchUsage = async () => {
-      const { data } = await supabase
-        .from('profiles')
-        .select('daily_limit,used_today')
-        .eq('user_id', user.id).single();
-      if (data) {
-        setRemaining(Math.max(0, (data.daily_limit ?? 0) - (data.used_today ?? 0)));
-      }
-    };
-    fetchUsage();
-  }, [user]);
 
   const handleAuthAction = () => {
     if (user) {
@@ -185,11 +167,6 @@ export const Header: React.FC<HeaderProps> = () => {
             onClick={handleAuthAction}
             className="px-4 lg:px-6 py-2 text-white rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg shadow-primary/30 text-sm lg:text-base flex items-center space-x-2 bg-gradient-to-r from-primary to-accent hover:shadow-xl hover:shadow-primary/50"
           >
-            {user && remaining !== null && (
-              <span className="hidden md:inline text-xs opacity-80">
-                Осталось: <b>{remaining}</b>
-              </span>
-            )}
             <span>{user ? t('account') : t('login')}</span>
           </button>
         </nav>
@@ -288,11 +265,6 @@ export const Header: React.FC<HeaderProps> = () => {
                   }}
                   className="w-full px-6 py-3 text-white rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg text-base flex items-center justify-center space-x-2 bg-gradient-to-r from-primary to-accent hover:shadow-lg hover:shadow-primary/40 mt-4"
                 >
-                  {user && remaining !== null && (
-                    <span className="text-xs opacity-80">
-                      Осталось: <b>{remaining}</b>
-                    </span>
-                  )}
                   <span>{user ? t('account') : t('login')}</span>
                 </button>
               </nav>
