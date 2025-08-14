@@ -4,24 +4,44 @@ import { Sparkles, Menu, X, Globe, Music, HelpCircle } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { AuthModal } from './AuthModal';
+import AccountModal from './AccountModal';
 import { UsageTracker } from '../utils/usageTracker';
 import HeaderPremium from './HeaderPremium';
-import HeaderAccountButton from './HeaderAccountButton';
+import { supabase } from '../supabaseClient';
 
 type HeaderProps = Record<string, never>;
 
 export const Header: React.FC<HeaderProps> = () => {
-  const { user, signOut } = useAuth();
+  const { user } = useAuth();
   const { language, setLanguage, t } = useLanguage();
   const [showAuthModal, setShowAuthModal] = React.useState(false);
+  const [showAccountModal, setShowAccountModal] = React.useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const [isAtmosphereMode, setIsAtmosphereMode] = React.useState<boolean>(false);
   const [showAtmosphereTooltip, setShowAtmosphereTooltip] = React.useState<boolean>(false);
   const audioRef = React.useRef<HTMLAudioElement | null>(null);
+  const [remaining, setRemaining] = React.useState<number | null>(null);
 
-  const handleAuthAction = async () => {
+  React.useEffect(() => {
+    if (!user) {
+      setRemaining(null);
+      return;
+    }
+    const fetchUsage = async () => {
+      const { data } = await supabase
+        .from('profiles')
+        .select('daily_limit,used_today')
+        .eq('user_id', user.id).single();
+      if (data) {
+        setRemaining(Math.max(0, (data.daily_limit ?? 0) - (data.used_today ?? 0)));
+      }
+    };
+    fetchUsage();
+  }, [user]);
+
+  const handleAuthAction = () => {
     if (user) {
-      await signOut();
+      setShowAccountModal(true);
     } else {
       setShowAuthModal(true);
     }
@@ -154,22 +174,23 @@ export const Header: React.FC<HeaderProps> = () => {
         </div>
         
         <nav className="hidden lg:flex items-center space-x-4 xl:space-x-6">
-          <a href="#support" className="text-base text-text-secondary hover:text-text-primary transition-colors duration-300 ease-in-out">
-            {t('nav.support')}
-          </a>
           <a href="#about" className="text-base text-text-secondary hover:text-text-primary transition-colors duration-300 ease-in-out">
             {t('nav.about')}
           </a>
           <a href="#articles" className="text-base text-text-secondary hover:text-text-primary transition-colors duration-300 ease-in-out">
             {t('nav.articles')}
           </a>
-          {user && <HeaderAccountButton onOpenAuth={() => setShowAuthModal(true)} />}
           <HeaderPremium />
           <button
             onClick={handleAuthAction}
             className="px-4 lg:px-6 py-2 text-white rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg shadow-primary/30 text-sm lg:text-base flex items-center space-x-2 bg-gradient-to-r from-primary to-accent hover:shadow-xl hover:shadow-primary/50"
           >
-            <span>{user ? t('logout') : t('login')}</span>
+            {user && remaining !== null && (
+              <span className="hidden md:inline text-xs opacity-80">
+                Осталось: <b>{remaining}</b>
+              </span>
+            )}
+            <span>{user ? t('account') : t('login')}</span>
           </button>
         </nav>
 
@@ -244,13 +265,6 @@ export const Header: React.FC<HeaderProps> = () => {
                 </div>
                 
                 <a 
-                  href="#support"
-                  className="block py-2 font-medium text-text-primary hover:text-primary transition-colors duration-300 ease-in-out"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {t('nav.support')}
-                </a>
-                <a 
                   href="#about" 
                   className="block text-text-secondary hover:text-primary transition-colors duration-300 ease-in-out py-2"
                   onClick={() => setIsMobileMenuOpen(false)}
@@ -264,14 +278,6 @@ export const Header: React.FC<HeaderProps> = () => {
                 >
                   {t('nav.articles')}
                 </a>
-                {user && (
-                  <div className="py-2">
-                    <HeaderAccountButton onOpenAuth={() => {
-                      setIsMobileMenuOpen(false);
-                      setShowAuthModal(true);
-                    }} />
-                  </div>
-                )}
                 <div className="py-2">
                   <HeaderPremium />
                 </div>
@@ -282,7 +288,12 @@ export const Header: React.FC<HeaderProps> = () => {
                   }}
                   className="w-full px-6 py-3 text-white rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg text-base flex items-center justify-center space-x-2 bg-gradient-to-r from-primary to-accent hover:shadow-lg hover:shadow-primary/40 mt-4"
                 >
-                  <span>{user ? t('logout') : t('login')}</span>
+                  {user && remaining !== null && (
+                    <span className="text-xs opacity-80">
+                      Осталось: <b>{remaining}</b>
+                    </span>
+                  )}
+                  <span>{user ? t('account') : t('login')}</span>
                 </button>
               </nav>
             </div>
@@ -295,6 +306,14 @@ export const Header: React.FC<HeaderProps> = () => {
         isOpen={showAuthModal}
         onClose={() => setShowAuthModal(false)}
         onSuccess={handleAuthSuccess}
+      />
+      <AccountModal
+        open={showAccountModal}
+        onClose={() => setShowAccountModal(false)}
+        onOpenAuth={() => {
+          setShowAccountModal(false);
+          setShowAuthModal(true);
+        }}
       />
     </>
   );

@@ -13,6 +13,7 @@
   },
   "login": "Login",
   "logout": "Logout",
+  "account": "My Account",
   "hero": {
     "title": "Reveal the Meaning",
     "titleHighlight": "Beyond",
