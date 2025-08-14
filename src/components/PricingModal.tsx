@@ -58,9 +58,9 @@ export default function PricingModal({ open, onClose }: Props) {
 
   return (
     <div className="fixed inset-0 z-50 grid place-items-center bg-black/50 backdrop-blur-xs p-4 animate-fade-in-slide-up">
-      <div className="w-full max-w-4xl rounded-3xl bg-background border border-border p-8 shadow-glow-purple text-text-primary font-sans">
+      <div className="w-full max-w-4xl rounded-3xl bg-background border border-border p-8 shadow-glow-purple text-[#333] font-sans">
         <div className="mb-6 flex items-start justify-between gap-4">
-          <h2 className="text-3xl font-serif font-semibold text-text-primary">Премиум-доступ</h2>
+          <h2 className="text-3xl font-serif font-semibold text-[#333]">Премиум-доступ</h2>
           <button onClick={onClose} className="rounded-full hover:bg-secondary/50 transition-colors p-2">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
           </button>
@@ -84,7 +84,7 @@ export default function PricingModal({ open, onClose }: Props) {
                 key={plan.id}
                 className={`relative rounded-2xl border p-6 transition-all duration-300 transform hover:-translate-y-1 ${
                   isHighlighted
-                    ? 'bg-white/60 border-accent shadow-glow scale-105'
+                    ? 'bg-white/60 border-primary shadow-glow scale-105'
                     : 'bg-white/40 border-border'
                 }`}
               >
@@ -117,11 +117,11 @@ export default function PricingModal({ open, onClose }: Props) {
                   }}
                   className={`w-full rounded-xl py-3 font-medium text-white transition-all duration-300 disabled:opacity-60 transform hover:scale-105 ${
                     isHighlighted
-                      ? 'bg-accent-vibrant hover:bg-rose-600 shadow-lg'
-                      : 'bg-accent hover:bg-accent-vibrant'
+                      ? 'bg-primary hover:bg-pink-300 shadow-lg'
+                      : 'bg-secondary hover:bg-purple-300'
                   }`}
                 >
-                  {busy === plan.id ? 'Создаю оплату…' : `Купить ${plan.name}`}
+                  {busy === plan.id ? 'Создаю оплату…' : plan.name}
                 </button>
               </div>
             );
