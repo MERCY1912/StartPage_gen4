@@ -1,6 +1,6 @@
 import { supabase } from '../supabaseClient';
 
-export async function startPurchase(planId: 'sub_7d' | 'sub_30d') {
+export async function startPurchase(planId: string) {
   const { data: { session } } = await supabase.auth.getSession();
   if (!session) throw new Error('Требуется вход');
 

@@ -2,6 +2,14 @@ import { useEffect, useState } from 'react';
 import { supabase } from '../supabaseClient';
 import { startPurchase } from '../lib/payments';
 
+type Plan = {
+  id: string;
+  name: string;
+  price_cents: number;
+  period_days: number;
+  daily_limit: number;
+};
+
 type Props = { open: boolean; onClose: () => void };
 
 export default function PricingModal({ open, onClose }: Props) {
@@ -11,19 +19,29 @@ export default function PricingModal({ open, onClose }: Props) {
     used_today: number | null;
     sub_expires_at: string | null;
   }>(null);
-  const [busy, setBusy] = useState<'7'|'30'|null>(null);
+  const [plans, setPlans] = useState<Plan[]>([]);
+  const [busy, setBusy] = useState<string | null>(null);
 
   useEffect(() => {
     if (!open) return;
     (async () => {
       const { data: { user } } = await supabase.auth.getUser();
-      if (!user) { setProfile(null); return; }
-      const { data } = await supabase
-        .from('profiles')
-        .select('plan,daily_limit,used_today,sub_expires_at')
-        .eq('user_id', user.id)
-        .single();
-      setProfile(data ?? null);
+      if (user) {
+        const { data } = await supabase
+          .from('profiles')
+          .select('plan,daily_limit,used_today,sub_expires_at')
+          .eq('user_id', user.id)
+          .single();
+        setProfile(data ?? null);
+      } else {
+        setProfile(null);
+      }
+
+      const { data: plansData } = await supabase
+        .from('plans')
+        .select('id,name,price_cents,period_days,daily_limit')
+        .order('period_days', { ascending: true });
+      setPlans(plansData ?? []);
     })();
   }, [open]);
 
@@ -46,41 +64,31 @@ export default function PricingModal({ open, onClose }: Props) {
         )}
 
         <div className="grid gap-4 sm:grid-cols-2">
-          {/* 7 дней */}
-          <div className="rounded-2xl border p-5">
-            <div className="mb-2 text-lg font-semibold">7 дней</div>
-            <div className="mb-3 text-3xl font-bold">300 ₽</div>
-            <ul className="mb-4 list-disc pl-5 text-sm text-gray-600">
-              <li>50 запросов в день</li>
-              <li>Приоритет в очереди</li>
-              <li>Поддержка проекта</li>
-            </ul>
-            <button
-              disabled={!!busy}
-              onClick={async () => { try { setBusy('7'); await startPurchase('sub_7d'); } finally { setBusy(null); } }}
-              className="w-full rounded-2xl bg-pink-500 px-4 py-2 font-medium text-white disabled:opacity-60"
-            >
-              {busy==='7' ? 'Создаю оплату…' : 'Купить 7 дней'}
-            </button>
-          </div>
-
-          {/* 30 дней */}
-          <div className="rounded-2xl border p-5">
-            <div className="mb-2 text-lg font-semibold">30 дней</div>
-            <div className="mb-3 text-3xl font-bold">700 ₽</div>
-            <ul className="mb-4 list-disc pl-5 text-sm text-gray-600">
-              <li>50 запросов в день</li>
-              <li>Приоритет в очереди</li>
-              <li>Поддержка проекта</li>
-            </ul>
-            <button
-              disabled={!!busy}
-              onClick={async () => { try { setBusy('30'); await startPurchase('sub_30d'); } finally { setBusy(null); } }}
-              className="w-full rounded-2xl bg-pink-500 px-4 py-2 font-medium text-white disabled:opacity-60"
-            >
-              {busy==='30' ? 'Создаю оплату…' : 'Купить 30 дней'}
-            </button>
-          </div>
+          {plans.map((plan) => (
+            <div key={plan.id} className="rounded-2xl border p-5">
+              <div className="mb-2 text-lg font-semibold">{plan.name}</div>
+              <div className="mb-3 text-3xl font-bold">{plan.price_cents / 100} ₽</div>
+              <ul className="mb-4 list-disc pl-5 text-sm text-gray-600">
+                <li>лимит {plan.daily_limit}/день</li>
+                <li>Приоритет в очереди</li>
+                <li>Поддержка проекта</li>
+              </ul>
+              <button
+                disabled={!!busy}
+                onClick={async () => {
+                  try {
+                    setBusy(plan.id);
+                    await startPurchase(plan.id);
+                  } finally {
+                    setBusy(null);
+                  }
+                }}
+                className="w-full rounded-2xl bg-pink-500 px-4 py-2 font-medium text-white disabled:opacity-60"
+              >
+                {busy === plan.id ? 'Создаю оплату…' : `Купить ${plan.name}`}
+              </button>
+            </div>
+          ))}
         </div>
 
         <p className="mt-4 text-xs text-gray-500">
