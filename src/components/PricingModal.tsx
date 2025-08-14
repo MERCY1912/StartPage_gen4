@@ -12,6 +12,12 @@ type Plan = {
 
 type Props = { open: boolean; onClose: () => void };
 
+const badgeInfo: Record<string, { text: string; className: string }> = {
+  'Доступ на 1 день': { text: 'попробовать', className: 'bg-blue-100 text-blue-800' },
+  'Неделя': { text: 'выгодно', className: 'bg-green-100 text-green-800' },
+  'Месяц': { text: 'лучший выбор', className: 'bg-purple-100 text-purple-800' },
+};
+
 export default function PricingModal({ open, onClose }: Props) {
   const [profile, setProfile] = useState<null | {
     plan: string | null;
@@ -65,9 +71,14 @@ export default function PricingModal({ open, onClose }: Props) {
 
         <div className="grid gap-4 sm:grid-cols-2">
           {plans.map((plan) => (
-            <div key={plan.id} className="rounded-2xl border p-5">
-              <div className="mb-2 text-lg font-semibold">{plan.name}</div>
-              <div className="mb-3 text-3xl font-bold">{plan.price_cents / 100} ₽</div>
+            <div key={plan.id} className="relative rounded-2xl border p-5">
+              {badgeInfo[plan.name] && (
+                <div className={`absolute -top-3 left-1/2 -translate-x-1/2 text-xs font-semibold px-3 py-1 rounded-full shadow-md ${badgeInfo[plan.name].className}`}>
+                  {badgeInfo[plan.name].text}
+                </div>
+              )}
+              <div className="mb-2 text-lg font-semibold text-center">{plan.name}</div>
+              <div className="mb-3 text-3xl font-bold text-center">{plan.price_cents / 100} ₽</div>
               <ul className="mb-4 list-disc pl-5 text-sm text-gray-600">
                 <li>лимит {plan.daily_limit}/день</li>
                 <li>Приоритет в очереди</li>

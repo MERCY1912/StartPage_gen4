@@ -75,65 +75,6 @@ const getServices = (): Service[] => [
   },
 ];
 
-const suggestionChips: Record<string, string[]> = {
-  style: [
-    'Что надеть на свидание осенью?',
-    'Капсула на работу, бюджет 10 000 ₽',
-    'Образы с джинсами и сапогами',
-    'Собери лук в стиле old money',
-    'Какой макияж подойдет к красному платью?',
-  ],
-  recipes: [
-    'Что приготовить на ужин для всей семьи?',
-    'Простой рецепт торта без выпечки',
-    'Идеи для завтрака за 5 минут',
-    'ПП-рецепты из куриной грудки',
-    'Как приготовить идеальный стейк?',
-  ],
-  wellness: [
-    'Уснуть, когда всё крутится в голове',
-    'Аффирмации на утро',
-    'Как начать медитировать?',
-    'Простая 10-минутная зарядка',
-    'Как справиться с тревогой?',
-  ],
-  relationships: [
-    'Как понять, что я ему нравлюсь?',
-    'Идеи для свидания в дождливый день',
-    'Как наладить отношения с мамой?',
-    'Что подарить парню на день рождения?',
-    'Как пережить расставание?',
-  ],
-  mood: [
-    'Скажи мне комплимент',
-    'Напиши мотивирующую цитату',
-    'Какой фильм посмотреть сегодня вечером?',
-    'Идеи, как поднять себе настроение',
-    'Подскажи хорошую книгу для уютного вечера',
-  ],
-  selfcare: [
-    'Как сделать маску для лица в домашних условиях?',
-    'Уход за волосами после окрашивания',
-    'Идеи для спа-вечера дома',
-    'Как выбрать хороший солнцезащитный крем?',
-    'Массаж лица для снятия отеков',
-  ],
-  career: [
-    'Как составить резюме без опыта работы?',
-    'Вопросы, которые стоит задать на собеседовании',
-    'Как научиться говорить "нет" на работе?',
-    'Идеи для дополнительного заработка',
-    'Как побороть синдром самозванца?',
-  ],
-  hobbies: [
-    'Какое хобби мне подойдет?',
-    'Идеи для фотосессии дома',
-    'Как научиться рисовать с нуля?',
-    'Что можно сделать из старых джинсов?',
-    'Как украсить комнату к лету?',
-  ],
-};
-
 
 export const InteractivePanel: React.FC = () => {
   const { t } = useLanguage();
@@ -234,7 +175,7 @@ export const InteractivePanel: React.FC = () => {
     // Проверяем валидность URL
     try {
       new URL(webhookUrl);
-    } catch {
+    } catch (_urlError) {
       throw new Error(`Некорректный URL вебхука для сервиса "${serviceId}": ${webhookUrl}`);
     }
 
@@ -308,7 +249,7 @@ export const InteractivePanel: React.FC = () => {
       if (responseText) {
         try {
           result = JSON.parse(responseText);
-        } catch {
+        } catch (_parseError) {
           console.log('Ответ не является JSON, используем как текст:', responseText);
           // Если это не JSON, используем как обычный текст
           return responseText;
@@ -552,20 +493,6 @@ export const InteractivePanel: React.FC = () => {
                   className="w-full h-24 sm:h-32 px-3 sm:px-4 py-2 sm:py-3 bg-white border border-border rounded-lg text-text-primary placeholder-text-secondary resize-none focus:outline-none focus:border-primary backdrop-blur-sm text-sm sm:text-base transition-colors duration-300 ease-in-out"
                   disabled={isLoading}
                 />
-
-                {/* Suggestion Chips */}
-                <div className="flex flex-wrap justify-center gap-2 pt-2">
-                  {suggestionChips[selectedService]?.map((suggestion) => (
-                    <button
-                      key={suggestion}
-                      type="button"
-                      onClick={() => setInput(suggestion)}
-                      className="px-3 py-1 bg-white/60 border border-primary/20 rounded-full text-xs text-text-primary hover:bg-primary/20 transition-colors duration-200"
-                    >
-                      {suggestion}
-                    </button>
-                  ))}
-                </div>
                 
                 <button
                   type="submit"
