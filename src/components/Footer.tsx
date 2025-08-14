@@ -26,7 +26,13 @@ export const Footer: React.FC = () => {
         </div>
         
         <div className="mt-6 sm:mt-8 pt-6 sm:pt-8 border-t border-border/50 text-center text-text-secondary text-xs sm:text-sm">
-          <p>{t('footer.copyright')} | {t('footer.privacy')} | {t('footer.terms')}</p>
+          <p>
+            <span>{t('footer.copyright')}</span>
+            <span className="mx-2">|</span>
+            <a href="/privacy.html" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">{t('footer.privacy')}</a>
+            <span className="mx-2">|</span>
+            <a href="/offer.html" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">{t('footer.terms')}</a>
+          </p>
         </div>
       </div>
     </footer>
