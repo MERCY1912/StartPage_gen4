@@ -115,13 +115,15 @@ export default function PricingModal({ open, onClose }: Props) {
                       setBusy(null);
                     }
                   }}
-                  className={`w-full rounded-xl py-3 font-medium text-white transition-all duration-300 disabled:opacity-60 transform hover:scale-105 ${
+                  className={`w-full rounded-xl py-3 font-medium text-text-primary transition-all duration-300 disabled:opacity-60 transform hover:scale-105 ${
                     isHighlighted
-                      ? 'bg-accent-vibrant hover:bg-rose-600 shadow-lg'
-                      : 'bg-accent hover:bg-accent-vibrant'
+                      ? 'bg-secondary-dark hover:bg-secondary shadow-lg'
+                      : 'bg-secondary hover:bg-secondary-dark'
                   }`}
                 >
-                  {busy === plan.id ? 'Создаю оплату…' : `Купить ${plan.name}`}
+                  {busy === plan.id
+                    ? 'Создаю оплату…'
+                    : plan.name.charAt(0).toUpperCase() + plan.name.slice(1)}
                 </button>
               </div>
             );
