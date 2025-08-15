@@ -85,7 +85,7 @@ export const Header: React.FC<HeaderProps> = () => {
       <header className="relative z-20 px-4 py-6 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <a href="/" className="flex items-center">
-          <img src="/logo.png" alt="Femmify logo" className="h-10 w-auto" />
+          <img src="http://blog.femmify.me/wp-content/uploads/2025/08/Femmify-logo4.png" alt="Femmify logo" className="h-10 w-auto" />
         </a>
         
         {/* Right side controls */}
