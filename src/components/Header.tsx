@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Sparkles, Menu, X, Globe, Music, HelpCircle } from 'lucide-react';
+import { Menu, X, Globe, Music, HelpCircle } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { AuthModal } from './AuthModal';
@@ -84,13 +84,8 @@ export const Header: React.FC<HeaderProps> = () => {
     <>
       <header className="relative z-20 px-4 py-6 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <a href="/" className="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-300 ease-in-out">
-          <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center">
-            <Sparkles className="w-6 h-6 text-white" />
-          </div>
-          <h1 className="text-2xl font-bold font-serif bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-            {t('footer.brandName')}
-          </h1>
+        <a href="/" className="flex items-center">
+          <img src="/logo.png" alt="Femmify logo" className="h-10 w-auto" />
         </a>
         
         {/* Right side controls */}
