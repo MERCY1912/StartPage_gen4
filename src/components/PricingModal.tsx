@@ -57,10 +57,10 @@ export default function PricingModal({ open, onClose }: Props) {
   const highlightedPlanIndex = plans.length - 1;
 
   return (
-    <div className="fixed inset-0 z-50 grid place-items-center bg-black/50 backdrop-blur-xs p-4 animate-fade-in-slide-up">
-      <div className="w-full max-w-4xl rounded-3xl bg-background border border-border p-8 shadow-glow-purple text-text-primary font-sans">
+    <div className="fixed inset-0 z-50 grid place-items-center bg-black/50 backdrop-blur-xs p-2 sm:p-4 animate-fade-in-slide-up">
+      <div className="w-full max-w-md sm:max-w-2xl lg:max-w-4xl rounded-3xl bg-background border border-border p-4 sm:p-8 shadow-glow-purple text-text-primary font-sans">
         <div className="mb-6 flex items-start justify-between gap-4">
-          <h2 className="text-3xl font-serif font-semibold text-text-primary">Премиум-доступ</h2>
+          <h2 className="text-2xl sm:text-3xl font-serif font-semibold text-text-primary">Премиум-доступ</h2>
           <button onClick={onClose} className="rounded-full hover:bg-secondary/50 transition-colors p-2">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
           </button>

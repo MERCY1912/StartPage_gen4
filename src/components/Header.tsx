@@ -151,10 +151,10 @@ export const Header: React.FC<HeaderProps> = () => {
         </div>
         
         <nav className="flex items-center space-x-2 sm:space-x-4 xl:space-x-6">
-          <a href="#about" className="hidden lg:block text-base text-text-secondary hover:text-text-primary transition-colors duration-300 ease-in-out">
+          <a href="#about" className="hidden lg:block text-base text-gradient-about underline-gradient-about transition-colors duration-300 ease-in-out">
             {t('nav.about')}
           </a>
-          <a href="#articles" className="text-sm sm:text-base font-semibold text-accent-vibrant border-b-2 border-accent-vibrant/50 hover:border-accent-vibrant transition-all duration-300 ease-in-out">
+          <a href="#articles" className="text-sm sm:text-base font-semibold text-gradient-blog underline-gradient-blog transition-all duration-300 ease-in-out">
             {t('nav.articles')}
           </a>
           <HeaderPremium />
