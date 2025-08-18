@@ -154,7 +154,7 @@ export const Header: React.FC<HeaderProps> = () => {
           <a href="#about" className="hidden lg:block text-base text-text-secondary hover:text-text-primary transition-colors duration-300 ease-in-out">
             {t('nav.about')}
           </a>
-          <a href="#articles" className="text-sm sm:text-base text-text-secondary hover:text-text-primary transition-colors duration-300 ease-in-out">
+          <a href="#articles" className="text-sm sm:text-base font-semibold text-accent-vibrant border-b-2 border-accent-vibrant/50 hover:border-accent-vibrant transition-all duration-300 ease-in-out">
             {t('nav.articles')}
           </a>
           <HeaderPremium />
