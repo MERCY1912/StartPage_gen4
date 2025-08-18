@@ -150,17 +150,17 @@ export const Header: React.FC<HeaderProps> = () => {
         </div>
         </div>
         
-        <nav className="hidden lg:flex items-center space-x-4 xl:space-x-6">
-          <a href="#about" className="text-base text-text-secondary hover:text-text-primary transition-colors duration-300 ease-in-out">
+        <nav className="flex items-center space-x-2 sm:space-x-4 xl:space-x-6">
+          <a href="#about" className="hidden lg:block text-base text-text-secondary hover:text-text-primary transition-colors duration-300 ease-in-out">
             {t('nav.about')}
           </a>
-          <a href="#articles" className="text-base text-text-secondary hover:text-text-primary transition-colors duration-300 ease-in-out">
+          <a href="#articles" className="text-sm sm:text-base font-semibold text-accent-vibrant border-b-2 border-accent-vibrant/50 hover:border-accent-vibrant transition-all duration-300 ease-in-out">
             {t('nav.articles')}
           </a>
           <HeaderPremium />
           <button
             onClick={handleAuthAction}
-            className="px-4 lg:px-6 py-2 text-white rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg shadow-primary/30 text-sm lg:text-base flex items-center space-x-2 bg-gradient-to-r from-primary to-accent hover:shadow-xl hover:shadow-primary/50"
+            className="hidden lg:flex px-4 lg:px-6 py-2 text-white rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg shadow-primary/30 text-sm lg:text-base items-center space-x-2 bg-gradient-to-r from-primary to-accent hover:shadow-xl hover:shadow-primary/50"
           >
             <span>{user ? t('account') : t('login')}</span>
           </button>
@@ -243,16 +243,6 @@ export const Header: React.FC<HeaderProps> = () => {
                 >
                   {t('nav.about')}
                 </a>
-                <a 
-                  href="#articles" 
-                  className="block text-text-secondary hover:text-primary transition-colors duration-300 ease-in-out py-2"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {t('nav.articles')}
-                </a>
-                <div className="py-2">
-                  <HeaderPremium />
-                </div>
                 <button 
                   onClick={() => {
                     handleAuthAction();
