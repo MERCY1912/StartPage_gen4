@@ -1,8 +1,13 @@
 /** @type {import('tailwindcss').Config} */
+const plugin = require('tailwindcss/plugin');
+
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      textShadow: {
+        glow: '0 0 8px rgba(185, 75, 114, 0.3)',
+      },
       colors: {
         'background': '#F8EADF',
         'text-primary': '#4E3B31',
@@ -13,6 +18,15 @@ export default {
         'secondary': '#D9C8E3',
         'secondary-dark': '#C4B5D6',
         'border': '#E8D9CF',
+        'about-from': '#4b2c2c',
+        'about-to': '#8e5a5a',
+        'blog-from': '#6a4b6f',
+        'blog-to': '#d16b8a',
+        'premium-from': '#b94b72',
+        'premium-to': '#f3a6b6',
+        'premium-anim-from': '#FDBB2D',
+        'premium-anim-via': '#D62976',
+        'premium-anim-to': '#FA7E1E',
       },
       screens: {
         'xs': '475px',
@@ -52,5 +66,18 @@ export default {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function({ addUtilities, theme }) {
+      const newUtilities = {};
+      const textShadows = theme('textShadow');
+      if (textShadows) {
+        Object.keys(textShadows).forEach(key => {
+          newUtilities[`.text-shadow-${key}`] = {
+            textShadow: textShadows[key],
+          };
+        });
+      }
+      addUtilities(newUtilities);
+    })
+  ],
 };
