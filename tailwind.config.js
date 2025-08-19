@@ -1,3 +1,5 @@
+import plugin from 'tailwindcss/plugin';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
@@ -52,5 +54,13 @@ export default {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function({ addUtilities }) {
+      addUtilities({
+        '.text-shadow-glow': {
+          'text-shadow': '0 0 8px rgba(185, 75, 114, 0.3)',
+        },
+      })
+    })
+  ],
 };
