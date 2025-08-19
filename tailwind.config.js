@@ -24,6 +24,9 @@ export default {
         'blog-to': '#d16b8a',
         'premium-from': '#b94b72',
         'premium-to': '#f3a6b6',
+        'premium-anim-from': '#FDBB2D',
+        'premium-anim-via': '#D62976',
+        'premium-anim-to': '#FA7E1E',
       },
       screens: {
         'xs': '475px',
