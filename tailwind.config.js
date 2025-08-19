@@ -26,6 +26,7 @@ export default {
         'pulse': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
         'float': 'float 3s ease-in-out infinite',
         'gradient-x': 'gradient-x 3s ease infinite',
+        'shine': 'shine 5s ease infinite',
       },
       keyframes: {
         float: {
@@ -41,7 +42,11 @@ export default {
             'background-size': '200% 200%',
             'background-position': 'right center'
           }
-        }
+        },
+        shine: {
+          '0%, 100%': { 'background-position': '0% 50%' },
+          '50%': { 'background-position': '100% 50%' },
+        },
       },
       backdropBlur: {
         xs: '2px',
