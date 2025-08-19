@@ -159,7 +159,7 @@ export const Header: React.FC<HeaderProps> = () => {
             </div>
             <span className="absolute bottom-1 left-0 w-full h-[2px] bg-gradient-to-r from-about-from to-about-to rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-center"></span>
           </a>
-          <a href="#articles" className="relative group px-3 py-2">
+          <a href="https://blog.femmify.me/" target="_blank" rel="noopener noreferrer" className="relative group px-3 py-2">
             <div className="flex items-center space-x-2">
               <img src="https://blog.femmify.me/wp-content/uploads/2025/08/blogF.png" alt="" className="w-5 h-5" />
               <span className="text-sm sm:text-base font-semibold text-transparent bg-clip-text bg-gradient-to-r from-about-from to-about-to group-hover:text-shadow-glow transition-all duration-300">
