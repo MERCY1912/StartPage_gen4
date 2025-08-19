@@ -151,11 +151,13 @@ export const Header: React.FC<HeaderProps> = () => {
         </div>
         
         <nav className="flex items-center space-x-2 sm:space-x-4 xl:space-x-6">
-          <a href="#about" className="hidden lg:block text-base text-text-secondary hover:text-text-primary transition-colors duration-300 ease-in-out">
+          <a href="#about" className="group relative hidden lg:block text-base font-semibold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent animate-gradient-x">
             {t('nav.about')}
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary to-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-in-out origin-left"></span>
           </a>
-          <a href="#articles" className="text-sm sm:text-base font-semibold text-accent-vibrant border-b-2 border-accent-vibrant/50 hover:border-accent-vibrant transition-all duration-300 ease-in-out">
+          <a href="#articles" className="group relative text-sm sm:text-base font-semibold text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent animate-gradient-x">
             {t('nav.articles')}
+            <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary to-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-in-out origin-left"></span>
           </a>
           <HeaderPremium />
           <button
