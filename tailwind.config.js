@@ -1,3 +1,5 @@
+import plugin from 'tailwindcss/plugin';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
@@ -49,8 +51,22 @@ export default {
       boxShadow: {
         'glow': '0 0 20px rgba(251, 194, 219, 0.4)',
         'glow-purple': '0 0 20px rgba(197, 163, 255, 0.4)',
-      }
+      },
+      textShadow: {
+        DEFAULT: '0px 2px 3px rgba(78, 59, 49, 0.3)',
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    plugin(function ({ matchUtilities, theme }) {
+      matchUtilities(
+        {
+          'text-shadow': (value) => ({
+            textShadow: value,
+          }),
+        },
+        { values: theme('textShadow') }
+      );
+    }),
+  ],
 };
