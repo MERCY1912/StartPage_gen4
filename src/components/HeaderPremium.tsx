@@ -8,10 +8,12 @@ function HeaderPremium() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="px-4 lg:px-6 py-2 text-white rounded-full transition-all duration-300 ease-in-out transform hover:scale-105 shadow-lg text-sm lg:text-base"
-        style={{ background: 'linear-gradient(90deg, #b94b72, #f3c6c6)' }}
+        className="relative group px-3 py-2"
       >
-        Премиум
+        <span className="text-sm sm:text-base font-semibold text-transparent bg-clip-text bg-gradient-to-r from-[#b94b72] to-[#f3c6c6] group-hover:opacity-90 transition-opacity duration-300">
+          Премиум
+        </span>
+        <span className="absolute bottom-1 left-0 w-full h-[2px] bg-gradient-to-r from-[#b94b72] to-[#f3c6c6] rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-center"></span>
       </button>
       <PricingModal open={open} onClose={() => setOpen(false)} />
     </>
