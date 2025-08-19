@@ -8,12 +8,12 @@ function HeaderPremium() {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="group flex items-center space-x-2 transition-opacity duration-300 hover:opacity-80"
+        className="relative group px-3 py-2"
       >
-        <img src="https://blog.femmify.me/wp-content/uploads/2025/08/vip-c.png" alt="" className="w-5 h-5 transition-transform duration-300 group-hover:scale-110" />
-        <span className="font-semibold text-transparent bg-clip-text bg-gradient-to-r from-orange-500 to-teal-400 animate-gradient-x">
+        <span className="text-sm sm:text-base font-semibold text-transparent bg-clip-text bg-gradient-to-r from-secondary to-primary group-hover:opacity-90 transition-opacity duration-300">
           Премиум
         </span>
+        <span className="absolute bottom-1 left-0 w-full h-[2px] bg-gradient-to-r from-secondary to-primary rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-center"></span>
       </button>
       <PricingModal open={open} onClose={() => setOpen(false)} />
     </>

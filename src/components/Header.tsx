@@ -7,7 +7,6 @@ import { AuthModal } from './AuthModal';
 import AccountModal from './AccountModal';
 import { UsageTracker } from '../utils/usageTracker';
 import HeaderPremium from './HeaderPremium';
-import { supabase } from '../supabaseClient';
 
 type HeaderProps = Record<string, never>;
 
@@ -151,11 +150,17 @@ export const Header: React.FC<HeaderProps> = () => {
         </div>
         
         <nav className="flex items-center space-x-2 sm:space-x-4 xl:space-x-6">
-          <a href="#about" className="hidden lg:block text-base text-text-secondary hover:text-text-primary transition-colors duration-300 ease-in-out">
-            {t('nav.about')}
+          <a href="#about" className="relative group hidden lg:block px-3 py-2">
+            <span className="text-base font-semibold text-transparent bg-clip-text bg-gradient-to-r from-secondary to-primary group-hover:opacity-90 transition-opacity duration-300">
+              {t('nav.about')}
+            </span>
+            <span className="absolute bottom-1 left-0 w-full h-[2px] bg-gradient-to-r from-secondary to-primary rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-center"></span>
           </a>
-          <a href="#articles" className="text-sm sm:text-base font-semibold text-accent-vibrant border-b-2 border-accent-vibrant/50 hover:border-accent-vibrant transition-all duration-300 ease-in-out">
-            {t('nav.articles')}
+          <a href="#articles" className="relative group px-3 py-2">
+            <span className="text-sm sm:text-base font-semibold text-transparent bg-clip-text bg-gradient-to-r from-secondary to-primary group-hover:opacity-90 transition-opacity duration-300">
+              {t('nav.articles')}
+            </span>
+            <span className="absolute bottom-1 left-0 w-full h-[2px] bg-gradient-to-r from-secondary to-primary rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-center"></span>
           </a>
           <HeaderPremium />
           <button
